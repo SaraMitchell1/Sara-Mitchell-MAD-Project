@@ -1,0 +1,53 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { 
+  IonHeader, IonToolbar, IonTitle, IonContent, IonButton, 
+  IonList, IonItem, IonThumbnail, IonLabel, IonInput 
+} from '@ionic/angular/standalone';
+import { Recipe } from '../models/recipe';
+
+@Component({
+  standalone: true,
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonList,
+    IonItem,
+    IonThumbnail,
+    IonLabel,
+    IonInput
+  ],
+})
+export class HomePage {
+  ingredients: string = ''; 
+  recipes: Recipe[] = [];   
+
+  constructor(private router: Router, private http: HttpClient) {}
+
+  goToDetails(recipeId: number) {
+    this.router.navigate(['/recipe-details', recipeId]);
+  }
+
+ 
+  searchRecipes() {
+    console.log('Searching for ingredients:', this.ingredients);
+    this.fetchRecipesFromAPI(this.ingredients);
+  }
+
+  
+  fetchRecipesFromAPI(ingredients: string) {
+    console.log('API fetch placeholder for:', ingredients);
+   
+  }
+}

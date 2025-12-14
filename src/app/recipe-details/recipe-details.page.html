@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Recipe Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-thumbnail>
+    <img [src]="recipe.image" alt="Recipe Image">
+  </ion-thumbnail>
+
+  
+  <ion-list>
+    <ion-item *ngFor="let ingredient of recipe.extendedIngredients">
+      <ion-label>
+        {{ ingredient.original }}
+        
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  
+  <ion-list>
+    <ion-item *ngFor="let step of recipe.analyzedInstructions">
+      <ion-label>
+        {{ step.step }}
+        
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" (click)="goBack()" style="margin-top:16px;">
+    Back to Home
+  </ion-button>
+
+</ion-content>
