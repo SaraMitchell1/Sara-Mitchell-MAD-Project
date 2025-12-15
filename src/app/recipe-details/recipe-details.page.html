@@ -1,31 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Recipe Details</ion-title>
+    <ion-title>{{ recipe.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
-  <ion-thumbnail>
+  
+  <ion-thumbnail *ngIf="recipe.image">
     <img [src]="recipe.image" alt="Recipe Image">
   </ion-thumbnail>
 
   
-  <ion-list>
+  <ion-list *ngIf="recipe.extendedIngredients?.length">
     <ion-item *ngFor="let ingredient of recipe.extendedIngredients">
       <ion-label>
-        {{ ingredient.original }}
-        
+        {{ measurementUnit === 'metric'
+            ? ingredient.measures.metric.amount + ' ' + ingredient.measures.metric.unitLong
+            : ingredient.measures.us.amount + ' ' + ingredient.measures.us.unitLong
+        }} - {{ ingredient.name }}
       </ion-label>
     </ion-item>
   </ion-list>
 
-  
-  <ion-list>
-    <ion-item *ngFor="let step of recipe.analyzedInstructions">
+ 
+  <ion-list *ngIf="recipe.analyzedInstructions?.length">
+    <ion-item *ngFor="let step of recipe.analyzedInstructions[0].steps">
       <ion-label>
-        {{ step.step }}
-        
+        {{ step.number }}. {{ step.step }}
       </ion-label>
     </ion-item>
   </ion-list>
