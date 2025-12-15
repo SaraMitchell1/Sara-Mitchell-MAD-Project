@@ -31,7 +31,7 @@ import { Recipe } from '../models/recipe';
 })
 export class HomePage {
   ingredients: string = ''; 
-  recipes: Recipe[] = [];   
+  recipes: Recipe[] = []; 
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -39,15 +39,24 @@ export class HomePage {
     this.router.navigate(['/recipe-details', recipeId]);
   }
 
- 
   searchRecipes() {
     console.log('Searching for ingredients:', this.ingredients);
     this.fetchRecipesFromAPI(this.ingredients);
   }
 
-  
   fetchRecipesFromAPI(ingredients: string) {
-    console.log('API fetch placeholder for:', ingredients);
-   
+    const apiKey = '70759a4f7911402abcc53d3c51d3b759';
+    const query = encodeURIComponent(ingredients);
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=${query}&apiKey=${apiKey}`;
+
+    this.http.get<any>(url).subscribe(
+      (res) => {
+        console.log('API response:', res);
+        this.recipes = res.results; 
+      },
+      (err) => {
+        console.error('API error:', err);
+      }
+    );
   }
 }
